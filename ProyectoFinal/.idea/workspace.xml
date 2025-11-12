@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0dd6be81-be5e-457b-a8fc-4612d494b536" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tuempresa/ProyectoFinal/modelo/Proveedor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuempresa/ProyectoFinal/modelo/Proveedor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +32,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.ProyectoFinal.executor": "Run",
     "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "Maven.ProyectoFinal [package].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -63,7 +64,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1762982489987</updated>
-      <workItem from="1762982491055" duration="925000" />
+      <workItem from="1762982491055" duration="1283000" />
     </task>
     <servers />
   </component>
