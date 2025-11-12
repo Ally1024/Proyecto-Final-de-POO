@@ -1,6 +1,5 @@
 package com.tuempresa.ProyectoFinal.modelo;
 
-
 import lombok.*;
 
 import javax.persistence.*;
@@ -8,20 +7,23 @@ import javax.persistence.*;
 @Entity
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
-public class Proveedor {
+public class Administrador {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idProveedor;
+    private Long idUsuario;
+
+    @Column(unique = true, nullable = false)
+    private String nombreUsuario;
 
     @Column(nullable = false)
-    private String nombre;
+    private String contrasena;
 
     @Column(nullable = false)
-    private String tipoServicio;
+    private String rol;
 
-    private String contacto;
-    private String telefono;
-    private String correo;
+    @OneToOne
+    @JoinColumn(name = "idCliente")
+    private Cliente cliente;
 }
 

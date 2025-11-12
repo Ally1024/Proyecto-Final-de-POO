@@ -28,9 +28,6 @@ public class PaqueteTuristico {
     @ManyToMany
     private List<GuiaTuristico> guias;
 
-    @ManyToMany
-    private List<Proveedor> proveedores;
-
     @OneToMany(mappedBy = "paquete", cascade = CascadeType.ALL)
     private List<Itinerario> itinerarios;
 }

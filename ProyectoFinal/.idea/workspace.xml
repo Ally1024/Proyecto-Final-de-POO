@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="0dd6be81-be5e-457b-a8fc-4612d494b536" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tuempresa/ProyectoFinal/modelo/BitacoraReservacion.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tuempresa/ProyectoFinal/modelo/PaqueteTuristico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuempresa/ProyectoFinal/modelo/PaqueteTuristico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tuempresa/ProyectoFinal/modelo/Proveedor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tuempresa/ProyectoFinal/modelo/Reservacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuempresa/ProyectoFinal/modelo/Reservacion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tuempresa/ProyectoFinal/modelo/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tuempresa/ProyectoFinal/modelo/Administrador.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +69,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1762982489987</updated>
-      <workItem from="1762982491055" duration="1283000" />
+      <workItem from="1762982491055" duration="1983000" />
     </task>
     <servers />
   </component>

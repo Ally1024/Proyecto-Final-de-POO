@@ -30,7 +30,5 @@ public class Reservacion {
     @JoinColumn(name = "idPaquete")
     private PaqueteTuristico paquete;
 
-    @OneToMany(mappedBy = "reservacion", cascade = CascadeType.ALL)
-    private List<BitacoraReservacion> bitacoras;
 }
 
