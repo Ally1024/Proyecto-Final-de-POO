@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<jasperReport name="TourOverview"
+              language="java"
+              pageWidth="595"
+              pageHeight="842"
+              columnWidth="555"
+              leftMargin="20"
+              rightMargin="20"
+              topMargin="20"
+              bottomMargin="20">
+
+    <!-- Query (vacío por ahora) -->
+    <queryString>
+        <![CDATA[]]>
+    </queryString>
+
+    <!-- Background -->
+    <background/>
+
+    <!-- Title -->
+    <title>
+        <band height="79">
+            <staticText>
+                <reportElement x="146" y="24" width="262" height="30"/>
+                <textElement textAlignment="Center">
+                    <font fontName="Times New Roman" size="20"/>
+                </textElement>
+                <text><![CDATA[Reporte Oxomoco Tour]]></text>
+            </staticText>
+        </band>
+    </title>
+
+    <!-- Page Header -->
+    <pageHeader>
+        <band height="35"/>
+    </pageHeader>
+
+    <!-- Column Header -->
+    <columnHeader>
+        <band height="61"/>
+    </columnHeader>
+
+    <!-- Detail -->
+    <detail>
+        <band height="125"/>
+    </detail>
+
+    <!-- Column Footer -->
+    <columnFooter>
+        <band height="45"/>
+    </columnFooter>
+
+    <!-- Page Footer -->
+    <pageFooter>
+        <band height="54"/>
+    </pageFooter>
+
+    <!-- Summary -->
+    <summary>
+        <band height="42"/>
+    </summary>
+
+</jasperReport>
