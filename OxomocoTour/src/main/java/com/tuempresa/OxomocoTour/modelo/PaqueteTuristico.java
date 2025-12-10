@@ -1,6 +1,5 @@
 package com.tuempresa.OxomocoTour.modelo;
 
-
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -8,7 +7,6 @@ import org.openxava.annotations.Hidden;
 import org.openxava.annotations.Money;
 import org.openxava.annotations.Required;
 import java.util.List;
-import javax.persistence.OneToMany;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -17,23 +15,36 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class PaqueteTuristico {
-
-
     @Id
     @Hidden
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
-    private String oid;   // Cambié a "oid" para que sea consistente con tus otras entidades
+    private String oid;
 
     @Column(length = 50, nullable = false)
     @Required
     private String nombre;
 
-    @Column(length = 100)
-    private String lugar;
+    @ManyToOne
+    @JoinColumn(name = "destino_oid")
+    @Required(message = "Debe seleccionar un destino")
+    private Destino destino;  // Reemplaza "lugar" (String) con relación a Destino
 
-    @OneToMany(mappedBy = "paquete")
-    private List<ActividadPaquete> actividades;
+    @ManyToMany (cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "paquete_actividad",
+            joinColumns = @JoinColumn(name = "paquete_oid"),
+            inverseJoinColumns = @JoinColumn(name = "actividad_oid")
+    )
+    private List<Actividad> actividades;  // Muchas actividades en un paquete
+
+    @ManyToMany (cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "paquete_proveedor",
+            joinColumns = @JoinColumn(name = "paquete_oid"),
+            inverseJoinColumns = @JoinColumn(name = "proveedor_oid")
+    )
+    private List<Proveedor> proveedores;  // Proveedores (transporte, comida, hoteles) en un paquete
 
     @Money
     private BigDecimal tarifa;
@@ -45,7 +56,6 @@ public class PaqueteTuristico {
     @Column(length = 200)
     private String descripcion;
 
-    // la cantidad maxima de cupos disponibles para el mero paqueton turistico
     @Column(nullable = false)
     @Required(message = "Debe indicar el cupo total")
     private Integer cupoTotal;
@@ -53,10 +63,15 @@ public class PaqueteTuristico {
     @Column(nullable = false)
     private Integer cupoReservado = 0;
 
+    // Campos opcionales para descripciones (si no quieres tablas intermedias)
+    @Column(length = 500)
+    private String descripcionActividades;  // Ej. "Selva Negra: Caminata guiada"
+
+    @Column(length = 500)
+    private String descripcionProveedores;  // Ej. "Transporte: Bus climatizado"
+
     @Transient
     public Integer getCupoDisponible() {
         return cupoTotal - cupoReservado;
     }
-
-
 }

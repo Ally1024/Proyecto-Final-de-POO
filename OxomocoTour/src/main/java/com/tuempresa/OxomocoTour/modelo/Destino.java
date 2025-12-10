@@ -12,17 +12,20 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Actividad {
+public class Destino {
     @Id
     @Hidden
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy="uuid2")
     private String oid;
 
-    @Column(length=70, nullable=false)
+    @Column(length=50, nullable=false)
     @Required
-    private String nombre; // Selva negra, Cascada Blanca, Senderismo, Bote de remo...
+    private String nombre;  //
 
-    @ManyToMany(mappedBy = "actividades", fetch = FetchType.LAZY)
-    private List<PaqueteTuristico> paquetes;  // Bidireccional: actividades en paquetes
+    @Column(length=200)
+    private String descripcion;  // Opcional: descripción del destino
+
+    @OneToMany(mappedBy = "destino", fetch = FetchType.LAZY)
+    private List<PaqueteTuristico> paquetes;  // Bidireccional: paquetes en este destino
 }

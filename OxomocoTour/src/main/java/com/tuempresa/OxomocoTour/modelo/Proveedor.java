@@ -7,11 +7,12 @@ import org.openxava.annotations.Hidden;
 import org.openxava.annotations.Required;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Getter@Setter
+@Getter
+@Setter
 public class Proveedor {
-
     @Id
     @Hidden
     @GeneratedValue(generator="system-uuid")
@@ -28,10 +29,11 @@ public class Proveedor {
     @Column(length=20)
     private String telefono;
 
-
     @ManyToOne
     @JoinColumn(name="tipo_proveedor_oid")
     @Required
-    private TipoDeProveedor tipoDeProveedor;
-    // Ej: Transporte, Restaurante, Hotel
+    private TipoDeProveedor tipoDeProveedor;  // Ej: Transporte, Restaurante, Hotel
+
+    @ManyToMany(mappedBy = "proveedores", fetch = FetchType.LAZY)
+    private List<PaqueteTuristico> paquetes;  // Bidireccional: proveedores en paquetes
 }

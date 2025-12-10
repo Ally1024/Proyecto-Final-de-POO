@@ -16,7 +16,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class Factura {
-
     @Id
     @Hidden
     @GeneratedValue(generator="system-uuid")
@@ -49,7 +48,10 @@ public class Factura {
     @Enumerated(EnumType.STRING)
     @Column(length = 20, nullable = false)
     private EstadoPago estadoPago = EstadoPago.PENDIENTE;
-    // PENDIENTE, ANTICIPO, PAGADO
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private MetodoPago metodoPago;  // Nuevo enum: TARJETA, EFECTIVO, TRANSFERENCIA
 
     // ---- Métodos de apoyo (OpenXava permite lógica simple aquí) ----
     @PrePersist
