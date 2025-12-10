@@ -1,0 +1,98 @@
+/*
+Pon aqu� tu propio estilo
+*/
+:root {
+    --verde: #98C112;
+    --verde-oscuro: #6E8A0F;
+    --negro: #0F0F0F;
+    --blanco: #ffffff;
+    --gris-claro: #f0f0f0;
+}
+
+/* FONDO GENERAL */
+body, html {
+    background-color: var(--blanco) !important;
+    color: var(--negro) !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+/* NAVBAR SUPERIOR */
+.navbar-default {
+    background-color: var(--verde) !important;
+    border: none !important;
+}
+
+.navbar-default .navbar-brand,
+.navbar-default .navbar-nav > li > a {
+    color: var(--blanco) !important;
+    font-weight: 600;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+    color: var(--negro) !important;
+}
+
+/* MENÚ IZQUIERDO */
+#ox-menu {
+    background-color: var(--negro) !important;
+}
+
+#ox-menu a {
+    color: var(--blanco) !important;
+}
+
+#ox-menu a:hover {
+    background-color: var(--verde) !important;
+    color: var(--negro) !important;
+}
+
+/* PANELES */
+.panel, .xava_frame {
+    background-color: var(--gris-claro) !important;
+    border: 2px solid var(--verde) !important;
+    border-radius: 10px;
+}
+
+/* TABLAS */
+table {
+    background-color: var(--blanco) !important;
+    color: var(--negro) !important;
+}
+
+th {
+    background-color: var(--verde) !important;
+    color: var(--negro) !important;
+    font-weight: bold !important;
+}
+
+/* INPUTS */
+input, select, textarea {
+    background-color: var(--blanco) !important;
+    color: var(--negro) !important;
+    border: 2px solid var(--verde) !important;
+    border-radius: 6px !important;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--verde-oscuro) !important;
+    box-shadow: 0 0 5px var(--verde) !important;
+}
+
+/* BOTONES */
+.btn, .xava_action_link {
+    background-color: var(--verde) !important;
+    color: var(--negro) !important;
+    border-radius: 8px !important;
+    border: none !important;
+    font-weight: 600 !important;
+}
+
+.btn:hover, .xava_action_link:hover {
+    background-color: var(--verde-oscuro) !important;
+    color: var(--blanco) !important;
+}
+
+/* LOGO EN NAVBAR (cuando lo pongas) */
+.navbar-brand img {
+    max-height: 45px !important;
+}

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			  xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+                                  http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+			  name="ClientesReport" pageWidth="595" pageHeight="842" columnWidth="555"
+			  leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20"
+			  language="java">
+
+	<!-- DATA SOURCE CONNECTION -->
+	<queryString>
+		<![CDATA[SELECT nombre, telefono FROM clientes]]>
+	</queryString>
+
+	<!-- FIELDS -->
+	<field name="nombre" class="java.lang.String"/>
+	<field name="telefono" class="java.lang.String"/>
+
+	<!-- TITLE / ENCABEZADO -->
+	<title>
+		<band height="150">
+
+			<!-- IMAGEN LOGO -->
+			<image>
+				<reportElement x="30" y="10" width="61" height="58"/>
+				<imageExpression><![CDATA["C:/Users/edgar/Downloads/OxomoTourIcon.jpg"]]></imageExpression>
+			</image>
+
+			<!-- TITULO SUPERIOR -->
+			<staticText>
+				<reportElement x="100" y="10" width="200" height="30"/>
+				<textElement verticalAlignment="Bottom">
+					<font isBold="true" size="16"/>
+				</textElement>
+				<text><![CDATA[Reservaciones]]></text>
+			</staticText>
+
+			<!-- LOGO TEXTO -->
+			<staticText>
+				<reportElement x="100" y="45" width="200" height="30"/>
+				<textElement verticalAlignment="Top">
+					<font isBold="true" size="14"/>
+				</textElement>
+				<text><![CDATA[Oxomoco Tour]]></text>
+			</staticText>
+
+			<!-- TEXTO DESCRIPTIVO -->
+			<staticText>
+				<reportElement x="40" y="80" width="262" height="30"/>
+				<text><![CDATA[Reporte Clientes Oxomoco Tour]]></text>
+			</staticText>
+
+			<!-- TELEFONO FIJO -->
+			<staticText>
+				<reportElement x="100" y="110" width="150" height="20"/>
+				<text><![CDATA[Teléfono: xxxx-xxxx]]></text>
+			</staticText>
+
+		</band>
+	</title>
+
+	<!-- COLUMN HEADER -->
+	<columnHeader>
+		<band height="30">
+			<staticText>
+				<reportElement x="0" y="0" width="277" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="277" y="0" width="278" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Teléfono]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+
+	<!-- DETAIL -->
+	<detail>
+		<band height="20">
+			<textField>
+				<reportElement x="0" y="0" width="277" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="277" y="0" width="278" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+
+	<!-- PAGE FOOTER -->
+	<pageFooter>
+		<band height="20">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+
+</jasperReport>

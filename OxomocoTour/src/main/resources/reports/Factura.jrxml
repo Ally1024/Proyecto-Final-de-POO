@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			  xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+                                  http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+			  name="FacturaReport" pageWidth="595" pageHeight="842" columnWidth="555"
+			  leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20"
+			  language="java">
+
+	<!-- PARÁMETROS -->
+	<parameter name="numeroFactura" class="java.lang.String"/>
+	<parameter name="fechaEmision" class="java.time.LocalDate"/>
+	<parameter name="cliente" class="java.lang.String"/>
+	<parameter name="paquete" class="java.lang.String"/>
+	<parameter name="fechaReservacion" class="java.time.LocalDate"/>
+	<parameter name="total" class="java.math.BigDecimal"/>
+	<parameter name="anticipo" class="java.math.BigDecimal"/>
+	<parameter name="saldoPendiente" class="java.math.BigDecimal"/>
+	<parameter name="estadoPago" class="java.lang.String"/>
+	<parameter name="metodoPago" class="java.lang.String"/>
+
+	<!-- TITLE -->
+	<title>
+		<band height="140">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="30"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Factura]]></text>
+			</staticText>
+
+			<staticText>
+				<reportElement x="0" y="35" width="120" height="20"/>
+				<text><![CDATA[Número:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="35" width="150" height="20"/>
+				<textFieldExpression><![CDATA[$P{numeroFactura}]]></textFieldExpression>
+			</textField>
+
+			<staticText>
+				<reportElement x="0" y="60" width="120" height="20"/>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="60" width="150" height="20"/>
+				<textFieldExpression><![CDATA[$P{fechaEmision}]]></textFieldExpression>
+			</textField>
+
+			<staticText>
+				<reportElement x="0" y="85" width="120" height="20"/>
+				<text><![CDATA[Cliente:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="85" width="300" height="20"/>
+				<textFieldExpression><![CDATA[$P{cliente}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+
+	<!-- SUMMARY -->
+	<summary>
+		<band height="150">
+			<staticText>
+				<reportElement x="0" y="0" width="150" height="20"/>
+				<text><![CDATA[Paquete:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="160" y="0" width="200" height="20"/>
+				<textFieldExpression><![CDATA[$P{paquete}]]></textFieldExpression>
+			</textField>
+
+			<staticText>
+				<reportElement x="0" y="25" width="150" height="20"/>
+				<text><![CDATA[Fecha Reservación:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="160" y="25" width="200" height="20"/>
+				<textFieldExpression><![CDATA[$P{fechaReservacion}]]></textFieldExpression>
+			</textField>
+
+			<staticText>
+				<reportElement x="0" y="50" width="150" height="20"/>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="160" y="50" width="100" height="20"/>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+
+			<staticText>
+				<reportElement x="0" y="75" width="150" height="20"/>
+				<text><![CDATA[Anticipo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="160" y="75" width="100" height="20"/>
+				<textFieldExpression><![CDATA[$P{anticipo}]]></textFieldExpression>
+			</textField>
+
+			<staticText>
+				<reportElement x="0" y="100" width="150" height="20"/>
+				<text><![CDATA[Saldo Pendiente:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="160" y="100" width="100" height="20"/>
+				<textFieldExpression><![CDATA[$P{saldoPendiente}]]></textFieldExpression>
+			</textField>
+
+			<staticText>
+				<reportElement x="0" y="125" width="150" height="20"/>
+				<text><![CDATA[Estado Pago:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="160" y="125" width="100" height="20"/>
+				<textFieldExpression><![CDATA[$P{estadoPago}]]></textFieldExpression>
+			</textField>
+
+			<staticText>
+				<reportElement x="270" y="125" width="120" height="20"/>
+				<text><![CDATA[Método Pago:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="400" y="125" width="150" height="20"/>
+				<textFieldExpression><![CDATA[$P{metodoPago}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+
+</jasperReport>
