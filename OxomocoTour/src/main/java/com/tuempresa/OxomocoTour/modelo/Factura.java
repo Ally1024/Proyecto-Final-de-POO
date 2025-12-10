@@ -23,7 +23,7 @@ public class Factura {
     private String oid;
 
     @Column(length = 20, nullable=false, unique=true)
-    @Required(message="El número de factura es obligatorio")
+    @Hidden
     private String numeroFactura;
 
     @Column(nullable=false)
@@ -57,6 +57,12 @@ public class Factura {
     @PrePersist
     @PreUpdate
     private void calcularSaldoYEstado() {
+
+        // Primero, genera el número de factura si es nuevo
+        if (numeroFactura == null || numeroFactura.isEmpty()) {
+            generarNumeroFactura();
+        }
+
         if (total == null) total = BigDecimal.ZERO;
         if (anticipo == null) anticipo = BigDecimal.ZERO;
 
@@ -73,4 +79,23 @@ public class Factura {
             saldoPendiente = BigDecimal.ZERO;
         }
     }
+
+    private void generarNumeroFactura() {
+    int year = LocalDate.now().getYear();
+    // Aquí necesitas consultar el último número del año en BD
+    // Si usas JPA puro, usa EntityManager; si Spring Data, un repositorio.
+    // Ejemplo simple (ajusta con tu setup):
+    // Asume que tienes un EntityManager inyectado o usa un servicio.
+    // Para simplicidad, usa una query JPQL. Si no, hardcodea un contador inicial.
+    // Ejemplo con EntityManager (inyéctalo si usas CDI o Spring):
+    // EntityManager em = ...; // Inyecta
+    // Query query = em.createQuery("SELECT MAX(CAST(SUBSTRING(f.numeroFactura, 8) AS int)) FROM Factura f WHERE f.numeroFactura LIKE :prefix");
+    // query.setParameter("prefix", "FT-" + year + "-%");
+    // Integer ultimo = (Integer) query.getSingleResult();
+    // int numero = (ultimo != null) ? ultimo + 1 : 1;
+    // Para empezar, usa un contador fijo (cambia a query real):
+    int numero = 1; // Reemplaza con la lógica de BD arriba
+    numeroFactura = "FT-" + year + "-" + String.format("%03d", numero);
+    }
+
 }

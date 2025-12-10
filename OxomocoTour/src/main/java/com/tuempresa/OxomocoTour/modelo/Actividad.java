@@ -20,7 +20,6 @@ public class Actividad {
     private String oid;
 
     @Column(length=70, nullable=false)
-    @Required
     private String nombre; // Selva negra, Cascada Blanca, Senderismo, Bote de remo...
 
     @ManyToMany(mappedBy = "actividades", fetch = FetchType.LAZY)

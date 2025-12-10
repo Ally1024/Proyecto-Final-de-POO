@@ -22,12 +22,10 @@ public class PaqueteTuristico {
     private String oid;
 
     @Column(length = 50, nullable = false)
-    @Required
     private String nombre;
 
     @ManyToOne
     @JoinColumn(name = "destino_oid")
-    @Required(message = "Debe seleccionar un destino")
     private Destino destino;  // Reemplaza "lugar" (String) con relación a Destino
 
     @ManyToMany (cascade = CascadeType.PERSIST)
@@ -57,7 +55,6 @@ public class PaqueteTuristico {
     private String descripcion;
 
     @Column(nullable = false)
-    @Required(message = "Debe indicar el cupo total")
     private Integer cupoTotal;
 
     @Column(nullable = false)
