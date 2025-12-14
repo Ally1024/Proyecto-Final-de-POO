@@ -26,6 +26,7 @@
                 clase="com.tuempresa.OxomocoTour.report.actions.PrintClienteReportAction">
         </accion>
     </controlador>
+
     <!-- Controlador para Factura -->
     <controlador nombre="Factura">
         <hereda-de controlador="Typical"/>
@@ -34,20 +35,20 @@
         </accion>
     </controlador>
 
-    <!-- Controlador para Reservacion -->
+    <!-- Controlador para Reservacion
     <controlador nombre="Reservacion">
         <hereda-de controlador="Typical"/>
         <accion nombre="Reporte" icono="printer" modo="list"
                 clase="com.tuempresa.OxomocoTour.report.actions.PrintReservacionReportAction">
         </accion>
-    </controlador>
+    </controlador>-->
 
-    <!-- Controlador para PaqueteTuristico -->
+    <!-- Controlador para PaqueteTuristico
     <controlador nombre="PaqueteTuristico">
         <hereda-de controlador="Typical"/>
         <accion nombre="Reporte" icono="printer" modo="list"
                 clase="com.tuempresa.OxomocoTour.report.actions.PrintPaqueteTuristicoReportAction">
         </accion>
-    </controlador>
+    </controlador>-->
 
 </controladores>

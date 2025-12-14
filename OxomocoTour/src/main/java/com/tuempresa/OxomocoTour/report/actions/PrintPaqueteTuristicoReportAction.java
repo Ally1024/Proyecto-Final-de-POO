@@ -1,18 +1,26 @@
 package com.tuempresa.OxomocoTour.report.actions;
 
 import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.openxava.actions.JasperReportBaseAction;
+import com.tuempresa.OxomocoTour.modelo.PaqueteTuristico;
 
-import java.util.Collection;
+import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
+
+import org.openxava.jpa.XPersistence;
 
 public class PrintPaqueteTuristicoReportAction extends JasperReportBaseAction {
 
     @Override
     protected JRDataSource getDataSource() throws Exception {
-        return new JREmptyDataSource();
+        EntityManager em = XPersistence.getManager();
+        List<PaqueteTuristico> paquetes = em.createQuery(
+                        "SELECT p FROM PaqueteTuristico p", PaqueteTuristico.class)
+                .getResultList();
+        return new JRBeanCollectionDataSource(paquetes);
     }
 
     @Override
@@ -22,6 +30,8 @@ public class PrintPaqueteTuristicoReportAction extends JasperReportBaseAction {
 
     @Override
     protected Map getParameters() throws Exception {
-        return null;
+        Map<String, Object> params = new HashMap<>();
+        params.put("ReportTitle", "Reporte de Paquetes Turísticos");
+        return params;
     }
 }

@@ -13,12 +13,17 @@
 			  topMargin="20"
 			  bottomMargin="20">
 
-	<!-- Parámetros -->
+	<!-- ESTILOS (antes de campos y parámetros) -->
+	<style name="Title" fontName="Arial" fontSize="18" isBold="true"/>
+	<style name="ColumnHeader" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="11"/>
+
+	<!-- PARÁMETROS -->
 	<parameter name="ReportTitle" class="java.lang.String"/>
 
-	<!-- Campos -->
+	<!-- CAMPOS -->
 	<field name="nombre" class="java.lang.String"/>
-	<field name="lugar" class="java.lang.String"/>
+	<field name="destino" class="com.tuempresa.OxomocoTour.modelo.Destino"/>
 	<field name="tarifa" class="java.math.BigDecimal"/>
 	<field name="fechaInicio" class="java.time.LocalDate"/>
 	<field name="fechaFin" class="java.time.LocalDate"/>
@@ -26,13 +31,10 @@
 	<field name="cupoTotal" class="java.lang.Integer"/>
 	<field name="cupoReservado" class="java.lang.Integer"/>
 	<field name="cupoDisponible" class="java.lang.Integer"/>
+	<field name="descripcionActividades" class="java.lang.String"/>
+	<field name="descripcionProveedores" class="java.lang.String"/>
 
-	<!-- Estilos -->
-	<style name="Title" fontName="Arial" fontSize="18" isBold="true"/>
-	<style name="ColumnHeader" fontName="Arial" fontSize="12" isBold="true"/>
-	<style name="Detail" fontName="Arial" fontSize="11"/>
-
-	<!-- Title Band -->
+	<!-- TITLE BAND -->
 	<title>
 		<band height="50">
 			<staticText>
@@ -43,37 +45,41 @@
 		</band>
 	</title>
 
-	<!-- Column Headers -->
+	<!-- COLUMN HEADERS -->
 	<columnHeader>
-		<band height="25">
+		<band height="30">
 			<staticText>
-				<reportElement x="0" y="0" width="100" height="25" style="ColumnHeader"/>
+				<reportElement x="0" y="0" width="100" height="30" style="ColumnHeader"/>
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="100" y="0" width="80" height="25" style="ColumnHeader"/>
-				<text><![CDATA[Lugar]]></text>
+				<reportElement x="100" y="0" width="80" height="30" style="ColumnHeader"/>
+				<text><![CDATA[Destino]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="180" y="0" width="70" height="25" style="ColumnHeader"/>
+				<reportElement x="180" y="0" width="70" height="30" style="ColumnHeader"/>
 				<text><![CDATA[Tarifa]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="250" y="0" width="70" height="25" style="ColumnHeader"/>
+				<reportElement x="250" y="0" width="70" height="30" style="ColumnHeader"/>
 				<text><![CDATA[Inicio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="320" y="0" width="70" height="25" style="ColumnHeader"/>
+				<reportElement x="320" y="0" width="70" height="30" style="ColumnHeader"/>
 				<text><![CDATA[Fin]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="390" y="0" width="165" height="25" style="ColumnHeader"/>
+				<reportElement x="390" y="0" width="80" height="30" style="ColumnHeader"/>
+				<text><![CDATA[Cupo Disp.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="470" y="0" width="85" height="30" style="ColumnHeader"/>
 				<text><![CDATA[Descripción]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 
-	<!-- Detail Band -->
+	<!-- DETAIL BAND -->
 	<detail>
 		<band height="25">
 			<textField>
@@ -82,7 +88,7 @@
 			</textField>
 			<textField>
 				<reportElement x="100" y="0" width="80" height="25" style="Detail"/>
-				<textFieldExpression><![CDATA[$F{lugar}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{destino}.getNombre()]]></textFieldExpression>
 			</textField>
 			<textField pattern="$ #,##0.00">
 				<reportElement x="180" y="0" width="70" height="25" style="Detail"/>
@@ -97,13 +103,17 @@
 				<textFieldExpression><![CDATA[$F{fechaFin}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="390" y="0" width="165" height="25" style="Detail"/>
+				<reportElement x="390" y="0" width="80" height="25" style="Detail"/>
+				<textFieldExpression><![CDATA[$F{cupoDisponible}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="0" width="85" height="25" style="Detail"/>
 				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 
-	<!-- Summary Band -->
+	<!-- SUMMARY BAND -->
 	<summary>
 		<band height="30">
 			<staticText>
