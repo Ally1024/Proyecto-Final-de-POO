@@ -29,7 +29,7 @@
     <!-- Controlador para Factura -->
     <controlador nombre="Factura">
         <hereda-de controlador="Typical"/>
-        <accion nombre="Reporte" icono="printer" modo="list"
+        <accion nombre="Reporte" icono="printer" modo="detail"
                 clase="com.tuempresa.OxomocoTour.report.actions.PrintFacturaReportAction">
         </accion>
     </controlador>

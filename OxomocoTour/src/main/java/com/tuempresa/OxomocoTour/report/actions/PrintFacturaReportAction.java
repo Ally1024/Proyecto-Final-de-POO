@@ -1,69 +1,88 @@
 package com.tuempresa.OxomocoTour.report.actions;
 
+import com.tuempresa.OxomocoTour.modelo.Factura;
+import com.tuempresa.OxomocoTour.modelo.Reservacion;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import org.openxava.actions.JasperReportBaseAction;
-import com.tuempresa.OxomocoTour.modelo.Factura;
+import org.openxava.jpa.XPersistence;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class PrintFacturaReportAction extends JasperReportBaseAction {
 
-    private Factura factura;
-
-    /** Permite setear la factura desde código */
-    public void setFactura(Factura factura) {
-        this.factura = factura;
-    }
-
     @Override
-    public void execute() throws Exception {
-        // Si la factura no fue seteada desde código, intentamos obtenerla del view
-        if (this.factura == null) {
-            if (getView() != null) {
-                Object entity = getView().getEntity();
-                if (entity instanceof Factura) {
-                    this.factura = (Factura) entity;
-                }
-            }
-        }
-
-        // Validación clara si no hay factura
-        if (this.factura == null) {
-            throw new Exception("No hay factura seleccionada para imprimir. Abre una factura primero o pásala con setFactura().");
-        }
-
-        super.execute();
-    }
-
-    @Override
-    protected JRDataSource getDataSource() throws Exception {
-        // Usamos JREmptyDataSource porque todos los datos vienen por parámetros
+    protected JRDataSource getDataSource() {
+        // Todos los datos se pasan por parámetros
         return new JREmptyDataSource(1);
     }
 
     @Override
-    protected String getJRXML() throws Exception {
-        return "Factura.jrxml"; // Asegúrate que esté en la ruta correcta
+    protected String getJRXML() {
+        return "Factura.jrxml";
     }
 
     @Override
     @SuppressWarnings("rawtypes")
     protected Map getParameters() throws Exception {
+
+        // 1?? Validar que hay una factura abierta
+        if (getView() == null || getView().getKeyValues().isEmpty()) {
+            throw new Exception(
+                    "Debes abrir una factura guardada antes de imprimir el reporte."
+            );
+        }
+
+        // 2?? Obtener el OID de la factura desde la vista
+        String oid = (String) getView().getKeyValues().get("oid");
+
+        // 3?? Recargar la factura REAL desde la base de datos
+        Factura factura = XPersistence.getManager().find(Factura.class, oid);
+
+        if (factura == null) {
+            throw new Exception("No se encontró la factura en la base de datos.");
+        }
+
+        // 4?? Validar que tenga reservación
+        Reservacion reservacion = factura.getReservacion();
+        if (reservacion == null) {
+            throw new Exception(
+                    "La factura no tiene una reservación asignada. " +
+                            "Guarda la factura y vuelve a abrirla antes de imprimir."
+            );
+        }
+
+        // 5?? Parámetros para el reporte
         Map<String, Object> params = new HashMap<>();
 
-        // Parámetros del reporte desde la factura
+        // FACTURA
         params.put("numeroFactura", factura.getNumeroFactura());
         params.put("fechaEmision", factura.getFechaEmision());
-        params.put("cliente", factura.getReservacion().getCliente().getNombre());
-        params.put("paquete", factura.getReservacion().getPaquete().getNombre());
-        params.put("fechaReservacion", factura.getReservacion().getFechaReservada());
         params.put("total", factura.getTotal());
         params.put("anticipo", factura.getAnticipo());
         params.put("saldoPendiente", factura.getSaldoPendiente());
         params.put("estadoPago", factura.getEstadoPago().toString());
-        params.put("metodoPago", factura.getMetodoPago() != null ? factura.getMetodoPago().toString() : "");
+        params.put("metodoPago",
+                factura.getMetodoPago() != null
+                        ? factura.getMetodoPago().toString()
+                        : "");
+
+        // RESERVACIÓN
+        params.put("fechaReservacion", reservacion.getFechaReservada());
+        params.put("cantidadPersonas", reservacion.getCantidadPersonas());
+
+        // CLIENTE
+        params.put("cliente",
+                reservacion.getCliente() != null
+                        ? reservacion.getCliente().getNombre()
+                        : "");
+
+        // PAQUETE
+        params.put("paquete",
+                reservacion.getPaquete() != null
+                        ? reservacion.getPaquete().getNombre()
+                        : "");
 
         return params;
     }

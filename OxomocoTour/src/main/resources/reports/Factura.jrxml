@@ -2,12 +2,19 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
 			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 			  xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
-                                  http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
-			  name="FacturaReport" pageWidth="595" pageHeight="842" columnWidth="555"
-			  leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20"
-			  language="java">
+              http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+			  name="Factura"
+			  pageWidth="595"
+			  pageHeight="842"
+			  columnWidth="555"
+			  leftMargin="20"
+			  rightMargin="20"
+			  topMargin="20"
+			  bottomMargin="20">
 
-	<!-- PARÁMETROS -->
+	<!-- ===================== -->
+	<!-- PARAMETROS -->
+	<!-- ===================== -->
 	<parameter name="numeroFactura" class="java.lang.String"/>
 	<parameter name="fechaEmision" class="java.time.LocalDate"/>
 	<parameter name="cliente" class="java.lang.String"/>
@@ -19,112 +26,124 @@
 	<parameter name="estadoPago" class="java.lang.String"/>
 	<parameter name="metodoPago" class="java.lang.String"/>
 
-	<!-- TITLE -->
+	<!-- ===================== -->
+	<!-- ENCABEZADO -->
+	<!-- ===================== -->
 	<title>
-		<band height="140">
-			<staticText>
-				<reportElement x="0" y="0" width="555" height="30"/>
-				<textElement textAlignment="Center">
+		<band height="120">
+
+			<!-- LOGO -->
+			<image>
+				<reportElement x="0" y="0" width="80" height="80"/>
+				<imageExpression><![CDATA["/images/logo_oxomoco.png"]]></imageExpression>
+			</image>
+
+			<!-- EMPRESA -->
+			<textField>
+				<reportElement x="100" y="5" width="350" height="25"/>
+				<textElement>
 					<font size="18" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Factura]]></text>
-			</staticText>
-
-			<staticText>
-				<reportElement x="0" y="35" width="120" height="20"/>
-				<text><![CDATA[Número:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="130" y="35" width="150" height="20"/>
-				<textFieldExpression><![CDATA[$P{numeroFactura}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Oxomoco Tour"]]></textFieldExpression>
 			</textField>
 
-			<staticText>
-				<reportElement x="0" y="60" width="120" height="20"/>
-				<text><![CDATA[Fecha:]]></text>
-			</staticText>
+			<!-- SUBTITULO -->
 			<textField>
-				<reportElement x="130" y="60" width="150" height="20"/>
-				<textFieldExpression><![CDATA[$P{fechaEmision}]]></textFieldExpression>
+				<reportElement x="100" y="32" width="350" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Agencia de Reservaciones Turísticas"]]></textFieldExpression>
 			</textField>
 
-			<staticText>
-				<reportElement x="0" y="85" width="120" height="20"/>
-				<text><![CDATA[Cliente:]]></text>
-			</staticText>
+			<!-- TELEFONO -->
 			<textField>
-				<reportElement x="130" y="85" width="300" height="20"/>
-				<textFieldExpression><![CDATA[$P{cliente}]]></textFieldExpression>
+				<reportElement x="100" y="55" width="350" height="18"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Teléfono: 8224-5108"]]></textFieldExpression>
 			</textField>
+
+			<!-- TITULO FACTURA -->
+			<textField>
+				<reportElement x="400" y="5" width="150" height="30"/>
+				<textElement textAlignment="Right">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["FACTURA"]]></textFieldExpression>
+			</textField>
+
+			<!-- LINEA -->
+			<line>
+				<reportElement x="0" y="95" width="555" height="1"/>
+			</line>
+
 		</band>
 	</title>
 
-	<!-- SUMMARY -->
-	<summary>
-		<band height="150">
-			<staticText>
-				<reportElement x="0" y="0" width="150" height="20"/>
-				<text><![CDATA[Paquete:]]></text>
-			</staticText>
+	<!-- ===================== -->
+	<!-- DETALLE -->
+	<!-- ===================== -->
+	<detail>
+		<band height="260">
+
 			<textField>
-				<reportElement x="160" y="0" width="200" height="20"/>
-				<textFieldExpression><![CDATA[$P{paquete}]]></textFieldExpression>
+				<reportElement x="0" y="10" width="300" height="18"/>
+				<textFieldExpression><![CDATA["Factura No: " + $P{numeroFactura}]]></textFieldExpression>
 			</textField>
 
-			<staticText>
-				<reportElement x="0" y="25" width="150" height="20"/>
-				<text><![CDATA[Fecha Reservación:]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="160" y="25" width="200" height="20"/>
-				<textFieldExpression><![CDATA[$P{fechaReservacion}]]></textFieldExpression>
+				<reportElement x="350" y="10" width="200" height="18"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Fecha: " + $P{fechaEmision}]]></textFieldExpression>
 			</textField>
 
-			<staticText>
-				<reportElement x="0" y="50" width="150" height="20"/>
-				<text><![CDATA[Total:]]></text>
-			</staticText>
+			<line>
+				<reportElement x="0" y="35" width="555" height="1"/>
+			</line>
+
 			<textField>
-				<reportElement x="160" y="50" width="100" height="20"/>
-				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+				<reportElement x="0" y="50" width="555" height="18"/>
+				<textFieldExpression><![CDATA["Cliente: " + $P{cliente}]]></textFieldExpression>
 			</textField>
 
-			<staticText>
-				<reportElement x="0" y="75" width="150" height="20"/>
-				<text><![CDATA[Anticipo:]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="160" y="75" width="100" height="20"/>
-				<textFieldExpression><![CDATA[$P{anticipo}]]></textFieldExpression>
+				<reportElement x="0" y="75" width="555" height="18"/>
+				<textFieldExpression><![CDATA["Paquete: " + $P{paquete}]]></textFieldExpression>
 			</textField>
 
-			<staticText>
-				<reportElement x="0" y="100" width="150" height="20"/>
-				<text><![CDATA[Saldo Pendiente:]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="160" y="100" width="100" height="20"/>
-				<textFieldExpression><![CDATA[$P{saldoPendiente}]]></textFieldExpression>
+				<reportElement x="0" y="100" width="555" height="18"/>
+				<textFieldExpression><![CDATA["Fecha de reservación: " + $P{fechaReservacion}]]></textFieldExpression>
 			</textField>
 
-			<staticText>
-				<reportElement x="0" y="125" width="150" height="20"/>
-				<text><![CDATA[Estado Pago:]]></text>
-			</staticText>
+			<line>
+				<reportElement x="0" y="130" width="555" height="1"/>
+			</line>
+
 			<textField>
-				<reportElement x="160" y="125" width="100" height="20"/>
-				<textFieldExpression><![CDATA[$P{estadoPago}]]></textFieldExpression>
+				<reportElement x="0" y="150" width="300" height="18"/>
+				<textFieldExpression><![CDATA["Total: C$ " + $P{total}]]></textFieldExpression>
 			</textField>
 
-			<staticText>
-				<reportElement x="270" y="125" width="120" height="20"/>
-				<text><![CDATA[Método Pago:]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="400" y="125" width="150" height="20"/>
-				<textFieldExpression><![CDATA[$P{metodoPago}]]></textFieldExpression>
+				<reportElement x="0" y="175" width="300" height="18"/>
+				<textFieldExpression><![CDATA["Anticipo: C$ " + $P{anticipo}]]></textFieldExpression>
 			</textField>
+
+			<textField>
+				<reportElement x="0" y="200" width="300" height="18"/>
+				<textFieldExpression><![CDATA["Saldo pendiente: C$ " + $P{saldoPendiente}]]></textFieldExpression>
+			</textField>
+
+			<textField>
+				<reportElement x="350" y="175" width="200" height="18"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Estado: " + $P{estadoPago}]]></textFieldExpression>
+			</textField>
+
 		</band>
-	</summary>
+	</detail>
 
 </jasperReport>

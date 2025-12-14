@@ -23,7 +23,7 @@
 			<!-- IMAGEN LOGO -->
 			<image>
 				<reportElement x="30" y="10" width="61" height="58"/>
-				<imageExpression><![CDATA["C:/Users/edgar/Downloads/OxomoTourIcon.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["/images/logo_oxomoco.png"]]></imageExpression>
 			</image>
 
 			<!-- TITULO SUPERIOR -->
@@ -53,7 +53,7 @@
 			<!-- TELEFONO FIJO -->
 			<staticText>
 				<reportElement x="100" y="110" width="150" height="20"/>
-				<text><![CDATA[Teléfono: xxxx-xxxx]]></text>
+				<text><![CDATA[Teléfono: 8224 5108]]></text>
 			</staticText>
 
 		</band>
