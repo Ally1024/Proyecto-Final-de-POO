@@ -7,6 +7,7 @@ import org.openxava.annotations.Hidden;
 import org.openxava.annotations.ReadOnly;
 import org.openxava.annotations.Required;
 import org.openxava.annotations.DescriptionsList;
+import org.openxava.jpa.XPersistence;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -23,11 +24,11 @@ public class Factura {
     @GenericGenerator(name="system-uuid", strategy="uuid2")
     private String oid;
 
-    @Column(length = 20, nullable=false, unique=true)
+    @Column(length = 20, nullable = false, unique = true)
     @Hidden
     private String numeroFactura;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     private LocalDate fechaEmision = LocalDate.now();
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -35,13 +36,13 @@ public class Factura {
     @Required(message="Debe seleccionar una reservación")
     private Reservacion reservacion;
 
-    @Column(precision=12, scale=2, nullable=false)
+    @Column(precision = 12, scale = 2, nullable = false)
     private BigDecimal total = BigDecimal.ZERO;
 
-    @Column(precision=12, scale=2)
+    @Column(precision = 12, scale = 2)
     private BigDecimal anticipo = BigDecimal.ZERO;
 
-    @Column(precision=12, scale=2)
+    @Column(precision = 12, scale = 2)
     @ReadOnly
     private BigDecimal saldoPendiente = BigDecimal.ZERO;
 
@@ -53,37 +54,38 @@ public class Factura {
     @Column(length = 20)
     private MetodoPago metodoPago;
 
-    // ------------------------------
-    // Generar número único antes de persistir
-    // ------------------------------
+    // ----------------------------------
+    // Se ejecuta ANTES de guardar
+    // ----------------------------------
     @PrePersist
     private void prePersist() {
-        generarNumeroFacturaUnico();
+        generarNumeroFactura();
         calcularSaldoYEstado();
     }
 
-    // ------------------------------
-    // Genera número secuencial único por año
-    // ------------------------------
-    private void generarNumeroFacturaUnico() {
+    // ----------------------------------
+    // Genera número secuencial ÚNICO
+    // ----------------------------------
+    private void generarNumeroFactura() {
         if (numeroFactura != null && !numeroFactura.isEmpty()) return;
 
         int year = LocalDate.now().getYear();
-        EntityManager em = EntityManagerProvider.getEntityManager(); // Necesitas un proveedor de EM
 
-        Integer ultimoNumero = (Integer) em.createQuery(
-                        "SELECT MAX(CAST(SUBSTRING(f.numeroFactura, 8) AS int)) " +
-                                "FROM Factura f WHERE f.numeroFactura LIKE :prefix")
-                .setParameter("prefix", "FT-" + year + "-%")
+        Integer ultimoNumero = (Integer) XPersistence.getManager()
+                .createQuery(
+                        "SELECT MAX(CAST(SUBSTRING(f.numeroFactura, 9) AS int)) " +
+                                "FROM Factura f WHERE f.numeroFactura LIKE :prefijo"
+                )
+                .setParameter("prefijo", "FT-" + year + "-%")
                 .getSingleResult();
 
-        int nuevoNumero = (ultimoNumero != null) ? ultimoNumero + 1 : 1;
-        numeroFactura = "FT-" + year + "-" + String.format("%03d", nuevoNumero);
+        int siguiente = (ultimoNumero == null) ? 1 : ultimoNumero + 1;
+        numeroFactura = "FT-" + year + "-" + String.format("%03d", siguiente);
     }
 
-    // ------------------------------
-    // Cálculo de saldo y estado de pago
-    // ------------------------------
+    // ----------------------------------
+    // Calcula saldo y estado
+    // ----------------------------------
     private void calcularSaldoYEstado() {
         if (total == null) total = BigDecimal.ZERO;
         if (anticipo == null) anticipo = BigDecimal.ZERO;
@@ -92,9 +94,11 @@ public class Factura {
 
         if (anticipo.compareTo(BigDecimal.ZERO) == 0) {
             estadoPago = EstadoPago.PENDIENTE;
-        } else if (saldoPendiente.compareTo(BigDecimal.ZERO) > 0) {
+        }
+        else if (saldoPendiente.compareTo(BigDecimal.ZERO) > 0) {
             estadoPago = EstadoPago.ANTICIPO;
-        } else {
+        }
+        else {
             estadoPago = EstadoPago.PAGADO;
             saldoPendiente = BigDecimal.ZERO;
         }
